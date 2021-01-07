@@ -1,5 +1,7 @@
 package com.revature.project2.controllers;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +23,7 @@ public class AuthController {
 	}
 
 	@PostMapping("/login")
-	public User login(@RequestBody Credentials cred) {
+	public ResponseEntity<User> login(@RequestBody Credentials cred) {
 
 		User user = userService.login(cred.getUsername(), cred.getPassword());
 
@@ -29,12 +31,12 @@ public class AuthController {
 			throw new RuntimeException("User name not fround - " + cred.getUsername());
 		}
 
-		return user;
+		return new ResponseEntity<User>(user, HttpStatus.OK);
 
 	}
 
 	@PostMapping("/signup")
-	public User signup(@RequestBody User user) {
+	public ResponseEntity<User> signup(@RequestBody User user) {
 
 		// System.out.println(user.getUserName());
 		user.setUserId(0);
@@ -44,7 +46,7 @@ public class AuthController {
 		// DISABLE FOR NOW
 		// userService.save(user);
 
-		return user;
+		return new ResponseEntity<User>(user, HttpStatus.CREATED);
 
 	}
 
