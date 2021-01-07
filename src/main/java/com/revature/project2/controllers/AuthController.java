@@ -40,8 +40,6 @@ public class AuthController {
 		user.setUserId(0);
 		user.setPhoto("");
 		user.setLeadboard(0);
-		user.setAliasId(0);
-		user.setLocationId(0);
 
 		// DISABLE FOR NOW
 		// userService.save(user);

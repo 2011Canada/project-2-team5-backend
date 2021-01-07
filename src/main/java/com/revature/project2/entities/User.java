@@ -31,12 +31,6 @@ public class User {
 	@Column(name = "leadboard")
 	private int leadboard;
 
-	@Column(name = "alias_id")
-	private int aliasId;
-
-	@Column(name = "location_id")
-	private int locationId;
-
 	public int getUserId() {
 		return userId;
 	}
@@ -85,24 +79,7 @@ public class User {
 		this.leadboard = leadboard;
 	}
 
-	public int getAliasId() {
-		return aliasId;
-	}
-
-	public void setAliasId(int aliasId) {
-		this.aliasId = aliasId;
-	}
-
-	public int getLocationId() {
-		return locationId;
-	}
-
-	public void setLocationId(int locationId) {
-		this.locationId = locationId;
-	}
-
-	public User(int userId, String username, String password, String email, String photo, int leadboard, int aliasId,
-			int locationId) {
+	public User(int userId, String username, String password, String email, String photo, int leadboard) {
 
 		this.userId = userId;
 		this.username = username;
@@ -110,8 +87,7 @@ public class User {
 		this.email = email;
 		this.photo = photo;
 		this.leadboard = leadboard;
-		this.aliasId = aliasId;
-		this.locationId = locationId;
+
 	}
 
 	public User() {
