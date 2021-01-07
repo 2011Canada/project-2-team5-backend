@@ -17,16 +17,25 @@ public class User {
 	private int userId;
 
 	@Column(name = "user_name")
-	private String userName;
+	private String username;
 
 	@Column(name = "user_password")
-	private String userPassword;
+	private String password;
 
-	@Column(name = "alias")
-	private String alias;
+	@Column(name = "email")
+	private String email;
+
+	@Column(name = "photo")
+	private String photo;
 
 	@Column(name = "leadboard")
 	private int leadboard;
+
+	@Column(name = "alias_id")
+	private int aliasId;
+
+	@Column(name = "location_id")
+	private int locationId;
 
 	public int getUserId() {
 		return userId;
@@ -36,28 +45,36 @@ public class User {
 		this.userId = userId;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	public String getUserPassword() {
-		return userPassword;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setUserPassword(String userPassword) {
-		this.userPassword = userPassword;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public String getAlias() {
-		return alias;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setAlias(String alias) {
-		this.alias = alias;
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 
 	public int getLeadboard() {
@@ -68,13 +85,33 @@ public class User {
 		this.leadboard = leadboard;
 	}
 
-	public User(int userId, String userName, String userPassword, String alias, int leadboard) {
-		super();
+	public int getAliasId() {
+		return aliasId;
+	}
+
+	public void setAliasId(int aliasId) {
+		this.aliasId = aliasId;
+	}
+
+	public int getLocationId() {
+		return locationId;
+	}
+
+	public void setLocationId(int locationId) {
+		this.locationId = locationId;
+	}
+
+	public User(int userId, String username, String password, String email, String photo, int leadboard, int aliasId,
+			int locationId) {
+
 		this.userId = userId;
-		this.userName = userName;
-		this.userPassword = userPassword;
-		this.alias = alias;
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.photo = photo;
 		this.leadboard = leadboard;
+		this.aliasId = aliasId;
+		this.locationId = locationId;
 	}
 
 	public User() {

@@ -5,4 +5,6 @@ import com.revature.project2.entities.User;
 public interface UserDAO {
 
 	public User findUserByName(String userName);
+
+	public void save(User user);
 }

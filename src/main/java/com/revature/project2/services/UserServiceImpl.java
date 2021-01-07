@@ -22,11 +22,18 @@ public class UserServiceImpl implements UserService {
 		User user = userD.findUserByName(username);
 		if (user != null) {
 
-			boolean passwordMatch = password.equals(user.getUserPassword());
+			boolean passwordMatch = password.equals(user.getPassword());
 			if (passwordMatch)
 				return user;
 		}
 		return null;
+	}
+
+	@Override
+	public void save(User user) {
+
+		userD.save(user);
+
 	}
 
 }

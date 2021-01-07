@@ -20,7 +20,7 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public User findUserByName(String username) {
 
-		String query = "SELECT c FROM User c WHERE c.userName = :username";
+		String query = "SELECT c FROM User c WHERE c.username = :username";
 
 		TypedQuery<User> tq = entityManager.createQuery(query, User.class);
 		tq.setParameter("username", username);
@@ -28,6 +28,19 @@ public class UserDAOImpl implements UserDAO {
 		User user = tq.getSingleResult();
 
 		return user;
+
+	}
+
+	@Override
+	public void save(User user) {
+		try {
+			User dbUser = entityManager.merge(user);
+
+			user.setUserId(dbUser.getUserId());
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 
 	}
 
