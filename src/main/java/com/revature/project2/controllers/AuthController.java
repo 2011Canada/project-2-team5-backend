@@ -28,7 +28,7 @@ public class AuthController {
 		User user = userService.login(cred.getUsername(), cred.getPassword());
 
 		if (user == null) {
-			throw new RuntimeException("User name not fround - " + cred.getUsername());
+			return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
 		}
 
 		return new ResponseEntity<User>(user, HttpStatus.OK);
