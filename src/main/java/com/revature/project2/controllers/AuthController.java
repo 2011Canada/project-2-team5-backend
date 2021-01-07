@@ -33,4 +33,21 @@ public class AuthController {
 
 	}
 
+	@PostMapping("/signup")
+	public User signup(@RequestBody User user) {
+
+		// System.out.println(user.getUserName());
+		user.setUserId(0);
+		user.setPhoto("");
+		user.setLeadboard(0);
+		user.setAliasId(0);
+		user.setLocationId(0);
+
+		// DISABLE FOR NOW
+		// userService.save(user);
+
+		return user;
+
+	}
+
 }
