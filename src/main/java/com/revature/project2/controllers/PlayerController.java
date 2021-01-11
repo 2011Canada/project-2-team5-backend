@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,19 +47,34 @@ public class PlayerController {
 		return new ResponseEntity<>(p, HttpStatus.OK);
 	}
 
+	@PutMapping("/{cp}")
+	public ResponseEntity<Player> updatePlayer(@PathVariable boolean cp, @RequestBody Player player) {
+
+		if (cp) {
+
+			String securePassword = PasswordUtils.generateSecurePassword(player.getUserPassword(),
+					player.getUserPassword());
+			player.setUserPassword(securePassword);
+		}
+
+		ps.savePlayer(player);
+		return new ResponseEntity<>(player, HttpStatus.OK);
+
+	}
+
 	@PostMapping("/signup")
 	public ResponseEntity<Player> saveNewPlayer(@RequestBody Player player) {
 
 		// encrypt password
 		String salt = PasswordUtils.getSalt(25);
-		String securePassword = PasswordUtils.generateSecurePassword(player.getPassword(), salt);
-		player.setPlayerId(0);
-		player.setPassword(securePassword);
+		String securePassword = PasswordUtils.generateSecurePassword(player.getUserPassword(), salt);
+		player.setUserId(0);
+		player.setUserPassword(securePassword);
 		player.setSalt(salt);
-		player.setLeadboard(0);
+		player.setCurrentLocationId(0);
 		player.setPhoto(null);
 
-		// ps.savePlayer(player);
+		ps.savePlayer(player);
 		return new ResponseEntity<>(player, HttpStatus.CREATED);
 
 	}
@@ -71,7 +87,7 @@ public class PlayerController {
 			return new ResponseEntity<Player>(HttpStatus.NOT_FOUND);
 		}
 
-		boolean passwordMatch = PasswordUtils.verifyUserPassword(cred.getPassword(), p.getPassword(), p.getSalt());
+		boolean passwordMatch = PasswordUtils.verifyUserPassword(cred.getPassword(), p.getUserPassword(), p.getSalt());
 
 		if (passwordMatch) {
 			return new ResponseEntity<>(p, HttpStatus.OK);

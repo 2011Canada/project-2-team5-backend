@@ -13,7 +13,7 @@ spring:
   profiles: dev
   
   application:    
-    name: FlashSale
+    name: Hack
   
   datasource:    
     driverClassName: org.postgresql.Driver
