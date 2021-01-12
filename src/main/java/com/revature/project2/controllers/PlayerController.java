@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.project2.entities.Credentials;
 import com.revature.project2.entities.Player;
+import com.revature.project2.services.AliasService;
 import com.revature.project2.services.PlayerService;
+import com.revature.project2.entities.Alias;
+import com.revature.project2.entities.Credentials;
 import com.revature.project2.utils.PasswordUtils;
 
 @RestController
@@ -23,10 +25,13 @@ import com.revature.project2.utils.PasswordUtils;
 public class PlayerController {
 
 	private PlayerService ps;
+	
+	private AliasService as;
 
 	@Autowired
-	public PlayerController(PlayerService ps) {
+	public PlayerController(PlayerService ps, AliasService as) {
 		this.ps = ps;
+		this.as = as;
 	}
 
 	@GetMapping
@@ -95,6 +100,28 @@ public class PlayerController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
+	}
+	
+	@GetMapping("/{id}/alias/current")
+	public ResponseEntity<Alias> findAliasById(@PathVariable int id) {
+
+		Alias a = as.findActiveAlias(id);
+		if (a == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<>(a, HttpStatus.OK);
+	}
+	
+	@PostMapping("/{id}/alias")
+	public ResponseEntity<Alias> makeAlias(@PathVariable int id, @RequestBody String name) {
+
+		Alias a = as.makeNewAlias(id, name);
+		if (a == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<>(a, HttpStatus.OK);
 	}
 
 }

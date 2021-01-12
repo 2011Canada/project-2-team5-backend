@@ -18,20 +18,28 @@ public class Player {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")
 	private int userId;
+	
 	@Column(name = "firstname")
 	private String firstName;
+	
 	@Column(name = "lastname")
 	private String lastName;
+	
 	@Column(name = "username")
 	private String userName;
+	
 	@Column(name = "user_password")
 	private String userPassword;
+	
 	@Column(name = "email")
 	private String email;
+	
 	@Column(name = "photo")
 	private String photo;
+	
 	@Column(name = "salt")
 	private String salt;
+	
 	@Column(name = "current_location")
 	private int currentLocationId;
 
