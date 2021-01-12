@@ -7,10 +7,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.project2.entities.Location;
+import com.revature.project2.entities.Player;
 import com.revature.project2.services.LocationService;
 
 @RestController
@@ -33,5 +36,10 @@ public class LocationController {
 	@GetMapping("/{id}")
 	public ResponseEntity<Location> findLocationById(@PathVariable int id) {
 		return new ResponseEntity<Location>(ls.findLocationById(id), HttpStatus.OK);
+	}
+	
+	@GetMapping("/{id}/users")
+	public ResponseEntity<List<Player>> findAllUsersInLocation(@PathVariable int id) {
+		return new ResponseEntity<List<Player>>(ls.findAllUsersInLocation(id), HttpStatus.OK);
 	}
 }
