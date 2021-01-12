@@ -11,6 +11,7 @@ public interface PlayerService {
 	public Player findPlayerById(int id);
 
 	public Player findPlayerByEmail(String email);
-
+	
 	public Player savePlayer(Player player);
+	
 }
