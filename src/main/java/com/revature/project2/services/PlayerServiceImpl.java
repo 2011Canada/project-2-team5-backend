@@ -22,11 +22,6 @@ public class PlayerServiceImpl implements PlayerService {
 		this.pd = pd;
 	}
 
-	@Override
-	public Player findProfileById(int id) {
-		
-		return cd.getOne(id);
-	}
 
 	@Override
 	public Alias findAliasByName(int userId, String name) {
