@@ -4,26 +4,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.project2.entities.Alias;
-import com.revature.project2.entities.User;
-import com.revature.project2.repositories.AliasDAO;
+import com.revature.project2.entities.Player;
 import com.revature.project2.repositories.PlayerDAO;
+import com.revature.project2.repositories.AliasDAO;
+
+import java.util.List;
 
 @Service
 public class PlayerServiceImpl implements PlayerService {
 	
-	private PlayerDAO cd;
+	private PlayerDAO pd;
 	
 	private AliasDAO ad;
 	
 	@Autowired
-	public PlayerServiceImpl(PlayerDAO cd, AliasDAO ad) {
-		super();
-		this.cd = cd;
-		this.ad = ad;
+	public PlayerServiceImpl(PlayerDAO pd) {
+		this.pd = pd;
 	}
 
 	@Override
-	public User findProfileById(int id) {
+	public Player findProfileById(int id) {
 		
 		return cd.getOne(id);
 	}
@@ -40,4 +40,27 @@ public class PlayerServiceImpl implements PlayerService {
 		return ad.createOne(userId, name);
 	}
 
+	@Override
+	public List<Player> findAllPlayers() {
+
+		return pd.findAll();
+	}
+
+	@Override
+	public Player findPlayerById(int id) {
+
+		return pd.getOne(id);
+	}
+
+	@Override
+	public Player savePlayer(Player player) {
+
+		return pd.saveAndFlush(player);
+	}
+
+	@Override
+	public Player findPlayerByEmail(String email) {
+
+		return pd.findByEmail(email);
+	}
 }
