@@ -71,10 +71,10 @@ public class PlayerController {
 		player.setUserId(0);
 		player.setUserPassword(securePassword);
 		player.setSalt(salt);
-		player.setCurrentLocationId(0);
+		player.setCurrentLocationId(4);
 		player.setPhoto(null);
 
-		ps.savePlayer(player);
+		// ps.savePlayer(player);
 		return new ResponseEntity<>(player, HttpStatus.CREATED);
 
 	}
