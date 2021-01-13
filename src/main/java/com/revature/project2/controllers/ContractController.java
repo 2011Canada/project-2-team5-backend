@@ -44,7 +44,7 @@ public class ContractController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Contract> saveNewPlayer(@RequestBody Contract contract) {
+	public ResponseEntity<Contract> saveNewContract(@RequestBody Contract contract) {
 
 		contract.setContractId(0);
 		contract.setStatusId(1);
@@ -54,7 +54,7 @@ public class ContractController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Contract> updatePlayer(@PathVariable int id, @RequestBody Contract contract) {
+	public ResponseEntity<Contract> updateContract(@PathVariable int id, @RequestBody Contract contract) {
 
 		Contract c = cs.findContractById(id);
 		if (c == null) {
@@ -62,7 +62,7 @@ public class ContractController {
 		}
 		c.setContractedTo(contract.getContractedTo());
 		c.setDescription(contract.getDescription());
-		c.setTargetId(contract.getTargetId());
+		// c.setTargetId(contract.getTargetId());
 		c.setStatusId(contract.getStatusId());
 
 		final Contract updateContract = cs.saveContract(c);

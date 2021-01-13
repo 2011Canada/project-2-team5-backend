@@ -2,13 +2,17 @@ package com.revature.project2.entities;
 
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -47,6 +51,26 @@ public class Player {
 
 	@Column(name = "movement_cooldown")
 	private Timestamp movementCooldown;
+
+	@JsonBackReference
+	@OneToOne(mappedBy = "player", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Contract target;
+
+	public Timestamp getMovementCooldown() {
+		return movementCooldown;
+	}
+
+	public void setMovementCooldown(Timestamp movementCooldown) {
+		this.movementCooldown = movementCooldown;
+	}
+
+	public Contract getTarget() {
+		return target;
+	}
+
+	public void setTarget(Contract target) {
+		this.target = target;
+	}
 
 	public int getUserId() {
 		return userId;
@@ -126,7 +150,7 @@ public class Player {
 	}
 
 	public Player(int userId, String firstName, String lastName, String userName, String userPassword, String email,
-			String photo, String salt, int currentLocationId, Timestamp movementCooldown) {
+			String photo, String salt, int currentLocationId, Timestamp movementCooldown, Contract target) {
 		super();
 		this.userId = userId;
 		this.firstName = firstName;
@@ -138,6 +162,7 @@ public class Player {
 		this.salt = salt;
 		this.currentLocationId = currentLocationId;
 		this.movementCooldown = movementCooldown;
+		this.target = target;
 	}
 
 	@Override
