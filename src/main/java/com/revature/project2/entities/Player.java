@@ -1,15 +1,15 @@
 package com.revature.project2.entities;
 
 import java.sql.Timestamp;
+import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -52,9 +52,9 @@ public class Player {
 	@Column(name = "movement_cooldown")
 	private Timestamp movementCooldown;
 
+	@OneToMany(mappedBy = "player", fetch = FetchType.LAZY)
 	@JsonBackReference
-	@OneToOne(mappedBy = "player", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private Contract target;
+	private List<Contract> targets;
 
 	public Timestamp getMovementCooldown() {
 		return movementCooldown;
@@ -64,12 +64,12 @@ public class Player {
 		this.movementCooldown = movementCooldown;
 	}
 
-	public Contract getTarget() {
-		return target;
+	public List<Contract> getTargets() {
+		return targets;
 	}
 
-	public void setTarget(Contract target) {
-		this.target = target;
+	public void setTargets(List<Contract> targets) {
+		this.targets = targets;
 	}
 
 	public int getUserId() {
@@ -150,7 +150,7 @@ public class Player {
 	}
 
 	public Player(int userId, String firstName, String lastName, String userName, String userPassword, String email,
-			String photo, String salt, int currentLocationId, Timestamp movementCooldown, Contract target) {
+			String photo, String salt, int currentLocationId, Timestamp movementCooldown, List<Contract> targets) {
 		super();
 		this.userId = userId;
 		this.firstName = firstName;
@@ -162,87 +162,7 @@ public class Player {
 		this.salt = salt;
 		this.currentLocationId = currentLocationId;
 		this.movementCooldown = movementCooldown;
-		this.target = target;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + currentLocationId;
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
-		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
-		result = prime * result + ((movementCooldown == null) ? 0 : movementCooldown.hashCode());
-		result = prime * result + ((photo == null) ? 0 : photo.hashCode());
-		result = prime * result + ((salt == null) ? 0 : salt.hashCode());
-		result = prime * result + userId;
-		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
-		result = prime * result + ((userPassword == null) ? 0 : userPassword.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Player other = (Player) obj;
-		if (currentLocationId != other.currentLocationId)
-			return false;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (firstName == null) {
-			if (other.firstName != null)
-				return false;
-		} else if (!firstName.equals(other.firstName))
-			return false;
-		if (lastName == null) {
-			if (other.lastName != null)
-				return false;
-		} else if (!lastName.equals(other.lastName))
-			return false;
-		if (movementCooldown == null) {
-			if (other.movementCooldown != null)
-				return false;
-		} else if (!movementCooldown.equals(other.movementCooldown))
-			return false;
-		if (photo == null) {
-			if (other.photo != null)
-				return false;
-		} else if (!photo.equals(other.photo))
-			return false;
-		if (salt == null) {
-			if (other.salt != null)
-				return false;
-		} else if (!salt.equals(other.salt))
-			return false;
-		if (userId != other.userId)
-			return false;
-		if (userName == null) {
-			if (other.userName != null)
-				return false;
-		} else if (!userName.equals(other.userName))
-			return false;
-		if (userPassword == null) {
-			if (other.userPassword != null)
-				return false;
-		} else if (!userPassword.equals(other.userPassword))
-			return false;
-		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "Player [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", userName="
-				+ userName + ", userPassword=" + userPassword + ", email=" + email + ", photo=" + photo + ", salt="
-				+ salt + ", currentLocationId=" + currentLocationId + ", movementCooldown=" + movementCooldown + "]";
+		this.targets = targets;
 	}
 
 }
