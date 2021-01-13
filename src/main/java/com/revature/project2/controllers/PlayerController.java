@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.project2.entities.Alias;
+import com.revature.project2.entities.Credentials;
 import com.revature.project2.entities.Player;
 import com.revature.project2.services.AliasService;
 import com.revature.project2.services.PlayerService;
-import com.revature.project2.entities.Alias;
-import com.revature.project2.entities.Credentials;
 import com.revature.project2.utils.PasswordUtils;
 
 @RestController
@@ -25,7 +25,7 @@ import com.revature.project2.utils.PasswordUtils;
 public class PlayerController {
 
 	private PlayerService ps;
-	
+
 	private AliasService as;
 
 	@Autowired
@@ -52,10 +52,30 @@ public class PlayerController {
 		return new ResponseEntity<>(p, HttpStatus.OK);
 	}
 
-	@PutMapping("/{cp}")
-	public ResponseEntity<Player> updatePlayer(@PathVariable boolean cp, @RequestBody Player player) {
+	@PutMapping()
+	public ResponseEntity<Player> updatePlayer(@RequestBody Player player) {
 
-		if (cp) {
+		Player p = ps.findPlayerById(player.getUserId());
+		if (p == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+		p.setFirstName(player.getFirstName());
+		p.setLastName(player.getLastName());
+		p.setUserName(player.getUserName());
+		p.setPhoto(player.getPhoto());
+		p.setMovementCooldown(player.getMovementCooldown());
+		p.setCurrentLocationId(player.getCurrentLocationId());
+
+		final Player updatePlayer = ps.savePlayer(p);
+		return new ResponseEntity<>(updatePlayer, HttpStatus.OK);
+
+	}
+
+	@PutMapping("/{cp}")
+	public ResponseEntity<Player> updatePlayer(@PathVariable String cp, @RequestBody Player player) {
+
+		if (cp == "true") {
 
 			String securePassword = PasswordUtils.generateSecurePassword(player.getUserPassword(),
 					player.getUserPassword());
@@ -101,37 +121,38 @@ public class PlayerController {
 		}
 
 	}
-	
+
 	@GetMapping("/{id}/alias/current")
 	public ResponseEntity<Alias> findAliasById(@PathVariable int id) {
 
 		Alias a = as.findActiveAlias(id, true);
-		
+
 		if (a == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 
 		return new ResponseEntity<Alias>(a, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/{id}/alias/all")
 	public ResponseEntity<List<Alias>> findAllAlias(@PathVariable int id) {
 
 		List<Alias> a = as.findAllByUserID(id);
-		
+
 		if (a == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 
 		return new ResponseEntity<List<Alias>>(a, HttpStatus.OK);
 	}
-	
+
 	@PostMapping("/{id}/alias")
 	public ResponseEntity<Alias> makeAlias(@PathVariable int id, @RequestBody String name) {
 
-		//Setting the state of existing aliases, if any, to inactive since the the new one will be active by default
+		// Setting the state of existing aliases, if any, to inactive since the the new
+		// one will be active by default
 		List<Alias> allAlias = as.findAllByUserID(id);
-		
+
 		if (allAlias != null) {
 			for (int i = 0; i < allAlias.size(); i++) {
 				Alias a = allAlias.get(i);
@@ -139,10 +160,10 @@ public class PlayerController {
 				as.updateAlias(a);
 			}
 		}
-		
-		//creating the new alias
+
+		// creating the new alias
 		Alias al = new Alias(0, id, name, 0, null, 1, true);
-		
+
 		Alias a = as.makeNewAlias(al);
 		if (a == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -150,19 +171,19 @@ public class PlayerController {
 
 		return new ResponseEntity<Alias>(a, HttpStatus.OK);
 	}
-	
+
 	@PostMapping("/{id}/alias/set")
 	public ResponseEntity<Alias> setCurrentAlias(@PathVariable int id, @RequestBody Alias alias) {
-		
-		//Setting the state of existing aliases, if any, to inactive
+
+		// Setting the state of existing aliases, if any, to inactive
 		Alias a = as.findActiveAlias(id, true);
-		
+
 		if (a != null) {
 			a.setActive(false);
 			as.updateAlias(a);
 		}
-		
-		//setting the passed Alias as current Alias
+
+		// setting the passed Alias as current Alias
 		alias.setActive(true);
 		Alias al = as.updateAlias(alias);
 		if (al == null) {
