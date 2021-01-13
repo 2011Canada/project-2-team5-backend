@@ -1,5 +1,7 @@
 package com.revature.project2.entities;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,30 +20,33 @@ public class Player {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")
 	private int userId;
-	
+
 	@Column(name = "firstname")
 	private String firstName;
-	
+
 	@Column(name = "lastname")
 	private String lastName;
-	
+
 	@Column(name = "username")
 	private String userName;
-	
+
 	@Column(name = "user_password")
 	private String userPassword;
-	
+
 	@Column(name = "email")
 	private String email;
-	
+
 	@Column(name = "photo")
 	private String photo;
-	
+
 	@Column(name = "salt")
 	private String salt;
-	
+
 	@Column(name = "current_location")
 	private int currentLocationId;
+
+	@Column(name = "movement_cooldown")
+	private Timestamp movementCooldown;
 
 	public int getUserId() {
 		return userId;
@@ -115,8 +120,13 @@ public class Player {
 		this.currentLocationId = currentLocationId;
 	}
 
+	public Player() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public Player(int userId, String firstName, String lastName, String userName, String userPassword, String email,
-			String photo, String salt, int currentLocationId) {
+			String photo, String salt, int currentLocationId, Timestamp movementCooldown) {
 		super();
 		this.userId = userId;
 		this.firstName = firstName;
@@ -127,11 +137,7 @@ public class Player {
 		this.photo = photo;
 		this.salt = salt;
 		this.currentLocationId = currentLocationId;
-	}
-
-	public Player() {
-		super();
-		// TODO Auto-generated constructor stub
+		this.movementCooldown = movementCooldown;
 	}
 
 	@Override
@@ -142,6 +148,7 @@ public class Player {
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+		result = prime * result + ((movementCooldown == null) ? 0 : movementCooldown.hashCode());
 		result = prime * result + ((photo == null) ? 0 : photo.hashCode());
 		result = prime * result + ((salt == null) ? 0 : salt.hashCode());
 		result = prime * result + userId;
@@ -176,6 +183,11 @@ public class Player {
 				return false;
 		} else if (!lastName.equals(other.lastName))
 			return false;
+		if (movementCooldown == null) {
+			if (other.movementCooldown != null)
+				return false;
+		} else if (!movementCooldown.equals(other.movementCooldown))
+			return false;
 		if (photo == null) {
 			if (other.photo != null)
 				return false;
@@ -205,7 +217,7 @@ public class Player {
 	public String toString() {
 		return "Player [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", userName="
 				+ userName + ", userPassword=" + userPassword + ", email=" + email + ", photo=" + photo + ", salt="
-				+ salt + ", currentLocationId=" + currentLocationId + "]";
+				+ salt + ", currentLocationId=" + currentLocationId + ", movementCooldown=" + movementCooldown + "]";
 	}
 
 }
