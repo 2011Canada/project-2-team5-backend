@@ -2,29 +2,39 @@ package com.revature.project2.services;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.project2.entities.Alias;
+import com.revature.project2.repositories.AliasDAO;
 
 @Service
 public class AliasServiceImpl implements AliasService {
-
-	@Override
-	public List<Alias> findByUserID(int userID) {
-		// TODO Auto-generated method stub
-		return null;
+	
+	AliasDAO ad;
+	
+	@Autowired
+	public AliasServiceImpl(AliasDAO ad) {
+		super();
+		this.ad = ad;
 	}
 
 	@Override
-	public Alias makeNewAlias(int userID, String name) {
+	public List<Alias> findAllByUserID(int userID) {
 		// TODO Auto-generated method stub
-		return null;
+		return ad.findByUserID(userID);
 	}
 
 	@Override
-	public Alias findActiveAlias(int userID) {
+	public Alias makeNewAlias(Alias a) {
 		// TODO Auto-generated method stub
-		return null;
+		return ad.saveAndFlush(a);
+	}
+
+	@Override
+	public Alias findActiveAlias(int userID, boolean isActive) {
+		// TODO Auto-generated method stub
+		return ad.findByUserIDAndIsActive(userID, isActive);
 	}
 
 	@Override
@@ -32,7 +42,11 @@ public class AliasServiceImpl implements AliasService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
+
+	@Override
+	public Alias updateAlias(Alias a) {
+		// TODO Auto-generated method stub
+		return ad.saveAndFlush(a);
+	}	
 
 }

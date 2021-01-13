@@ -105,23 +105,71 @@ public class PlayerController {
 	@GetMapping("/{id}/alias/current")
 	public ResponseEntity<Alias> findAliasById(@PathVariable int id) {
 
-		Alias a = as.findActiveAlias(id);
+		Alias a = as.findActiveAlias(id, true);
+		
 		if (a == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 
-		return new ResponseEntity<>(a, HttpStatus.OK);
+		return new ResponseEntity<Alias>(a, HttpStatus.OK);
+	}
+	
+	@GetMapping("/{id}/alias/all")
+	public ResponseEntity<List<Alias>> findAllAlias(@PathVariable int id) {
+
+		List<Alias> a = as.findAllByUserID(id);
+		
+		if (a == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<List<Alias>>(a, HttpStatus.OK);
 	}
 	
 	@PostMapping("/{id}/alias")
 	public ResponseEntity<Alias> makeAlias(@PathVariable int id, @RequestBody String name) {
 
-		Alias a = as.makeNewAlias(id, name);
+		//Setting the state of existing aliases, if any, to inactive since the the new one will be active by default
+		List<Alias> allAlias = as.findAllByUserID(id);
+		
+		if (allAlias != null) {
+			for (int i = 0; i < allAlias.size(); i++) {
+				Alias a = allAlias.get(i);
+				a.setActive(false);
+				as.updateAlias(a);
+			}
+		}
+		
+		//creating the new alias
+		Alias al = new Alias(0, id, name, 0, null, 1, true);
+		
+		Alias a = as.makeNewAlias(al);
 		if (a == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 
-		return new ResponseEntity<>(a, HttpStatus.OK);
+		return new ResponseEntity<Alias>(a, HttpStatus.OK);
+	}
+	
+	@PostMapping("/{id}/alias/set")
+	public ResponseEntity<Alias> setCurrentAlias(@PathVariable int id, @RequestBody Alias alias) {
+		
+		//Setting the state of existing aliases, if any, to inactive
+		Alias a = as.findActiveAlias(id, true);
+		
+		if (a != null) {
+			a.setActive(false);
+			as.updateAlias(a);
+		}
+		
+		//setting the passed Alias as current Alias
+		alias.setActive(true);
+		Alias al = as.updateAlias(alias);
+		if (al == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<Alias>(al, HttpStatus.OK);
 	}
 
 }
