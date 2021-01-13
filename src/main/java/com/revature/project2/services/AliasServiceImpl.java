@@ -20,7 +20,7 @@ public class AliasServiceImpl implements AliasService {
 	}
 
 	@Override
-	public List<Alias> findByUserID(int userID) {
+	public List<Alias> findAllByUserID(int userID) {
 		// TODO Auto-generated method stub
 		return ad.findByUserID(userID);
 	}

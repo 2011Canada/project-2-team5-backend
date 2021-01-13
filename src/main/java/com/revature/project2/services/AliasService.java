@@ -6,7 +6,7 @@ import com.revature.project2.entities.Alias;
 
 public interface AliasService {
 	
-	public List<Alias> findByUserID(int userID);
+	public List<Alias> findAllByUserID(int userID);
 
 	public Alias makeNewAlias(Alias a);
 	

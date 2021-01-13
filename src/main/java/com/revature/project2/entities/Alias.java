@@ -1,7 +1,5 @@
 package com.revature.project2.entities;
 
-import java.sql.Timestamp;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,8 +25,8 @@ public class Alias {
 	@Column(name = "current_level")
 	private int aliasLevel;
 	
-	@Column(name = "movement_cooldown")
-	private Timestamp moveCoolDown;
+	@Column(name = "photo")
+	private String photo;
 	
 	@Column(name = "state_id")
 	private int stateID;
@@ -41,14 +39,14 @@ public class Alias {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Alias(int aliasID, int userID, String name, int aliasLevel, Timestamp moveCoolDown, int stateID,
+	public Alias(int aliasID, int userID, String name, int aliasLevel, String photo, int stateID,
 			boolean isActive) {
 		super();
 		this.aliasID = aliasID;
 		this.userID = userID;
 		this.name = name;
 		this.aliasLevel = aliasLevel;
-		this.moveCoolDown = moveCoolDown;
+		this.photo = photo;
 		this.stateID = stateID;
 		this.isActive = isActive;
 	}
@@ -85,12 +83,12 @@ public class Alias {
 		this.aliasLevel = aliasLevel;
 	}
 
-	public Timestamp getMoveCoolDown() {
-		return moveCoolDown;
+	public String getPhoto() {
+		return photo;
 	}
 
-	public void setMoveCoolDown(Timestamp moveCoolDown) {
-		this.moveCoolDown = moveCoolDown;
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 
 	public int getStateID() {
@@ -112,7 +110,7 @@ public class Alias {
 	@Override
 	public String toString() {
 		return "Alias [aliasID=" + aliasID + ", userID=" + userID + ", name=" + name + ", aliasLevel=" + aliasLevel
-				+ ", moveCoolDown=" + moveCoolDown + ", stateID=" + stateID + ", isActive=" + isActive + "]";
+				+ ", photo=" + photo + ", stateID=" + stateID + ", isActive=" + isActive + "]";
 	}
 
 	@Override
@@ -122,8 +120,8 @@ public class Alias {
 		result = prime * result + aliasID;
 		result = prime * result + aliasLevel;
 		result = prime * result + (isActive ? 1231 : 1237);
-		result = prime * result + ((moveCoolDown == null) ? 0 : moveCoolDown.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((photo == null) ? 0 : photo.hashCode());
 		result = prime * result + stateID;
 		result = prime * result + userID;
 		return result;
@@ -144,15 +142,15 @@ public class Alias {
 			return false;
 		if (isActive != other.isActive)
 			return false;
-		if (moveCoolDown == null) {
-			if (other.moveCoolDown != null)
-				return false;
-		} else if (!moveCoolDown.equals(other.moveCoolDown))
-			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
 		} else if (!name.equals(other.name))
+			return false;
+		if (photo == null) {
+			if (other.photo != null)
+				return false;
+		} else if (!photo.equals(other.photo))
 			return false;
 		if (stateID != other.stateID)
 			return false;
