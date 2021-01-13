@@ -7,10 +7,12 @@ import com.revature.project2.entities.Alias;
 public interface AliasService {
 	
 	public List<Alias> findByUserID(int userID);
+
+	public Alias makeNewAlias(Alias a);
 	
-	public Alias makeNewAlias(int userID, String name);
+	public Alias findActiveAlias(int userID, boolean isActive);
 	
-	public Alias findActiveAlias(int userID);
+	public Alias updateAlias(Alias a);
 	
 	public Alias setActiveAlias(int userID);
 

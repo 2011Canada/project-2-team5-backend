@@ -1,5 +1,6 @@
 package com.revature.project2.controllers;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,7 +106,8 @@ public class PlayerController {
 	@GetMapping("/{id}/alias/current")
 	public ResponseEntity<Alias> findAliasById(@PathVariable int id) {
 
-		Alias a = as.findActiveAlias(id);
+		Alias a = as.findActiveAlias(id, true);
+		
 		if (a == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
@@ -115,8 +117,24 @@ public class PlayerController {
 	
 	@PostMapping("/{id}/alias")
 	public ResponseEntity<Alias> makeAlias(@PathVariable int id, @RequestBody String name) {
+		
+		Timestamp currentTime = new Timestamp(System.currentTimeMillis());
 
-		Alias a = as.makeNewAlias(id, name);
+		//Setting the state of existing aliases, if any, to inactive since the the new one will be active by default
+		List<Alias> allAlias = as.findByUserID(id);
+		
+		if (allAlias != null) {
+			for (int i = 0; i < allAlias.size(); i++) {
+				Alias a = allAlias.get(i);
+				a.setActive(false);
+				as.updateAlias(a);
+			}
+		}
+		
+		//creating the new alias
+		Alias al = new Alias(0, id, name, 0, currentTime, 1, true);
+		
+		Alias a = as.makeNewAlias(al);
 		if (a == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}

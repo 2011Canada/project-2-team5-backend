@@ -3,10 +3,8 @@ package com.revature.project2.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.revature.project2.entities.Alias;
 import com.revature.project2.entities.Player;
 import com.revature.project2.repositories.PlayerDAO;
-import com.revature.project2.repositories.AliasDAO;
 
 import java.util.List;
 
@@ -15,24 +13,9 @@ public class PlayerServiceImpl implements PlayerService {
 	
 	private PlayerDAO pd;
 	
-	private AliasDAO ad;
-	
 	@Autowired
 	public PlayerServiceImpl(PlayerDAO pd) {
 		this.pd = pd;
-	}
-
-
-	@Override
-	public Alias findAliasByName(int userId, String name) {
-		
-		return ad.findAliasByName(userId, name);
-	}
-
-	@Override
-	public Alias createAlias(int userId, String name) {
-		
-		return ad.createOne(userId, name);
 	}
 
 	@Override
