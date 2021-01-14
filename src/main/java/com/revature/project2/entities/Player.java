@@ -3,12 +3,15 @@ package com.revature.project2.entities;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -55,6 +58,18 @@ public class Player {
 	@OneToMany(mappedBy = "player", fetch = FetchType.LAZY)
 	@JsonBackReference
 	private List<Contract> targets;
+
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(referencedColumnName = "location_id", name = "current_location", insertable = false, updatable = false)
+	private Location currentLocation;
+
+	public Location getCurrentLocation() {
+		return currentLocation;
+	}
+
+	public void setCurrentLocation(Location currentLocation) {
+		this.currentLocation = currentLocation;
+	}
 
 	public Timestamp getMovementCooldown() {
 		return movementCooldown;
@@ -150,7 +165,8 @@ public class Player {
 	}
 
 	public Player(int userId, String firstName, String lastName, String userName, String userPassword, String email,
-			String photo, String salt, int currentLocationId, Timestamp movementCooldown, List<Contract> targets) {
+			String photo, String salt, int currentLocationId, Timestamp movementCooldown, List<Contract> targets,
+			Location currentLocation) {
 		super();
 		this.userId = userId;
 		this.firstName = firstName;
@@ -163,6 +179,7 @@ public class Player {
 		this.currentLocationId = currentLocationId;
 		this.movementCooldown = movementCooldown;
 		this.targets = targets;
+		this.currentLocation = currentLocation;
 	}
 
 }
