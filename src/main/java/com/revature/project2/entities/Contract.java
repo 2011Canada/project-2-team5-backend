@@ -39,36 +39,9 @@ public class Contract {
 	@JoinColumn(referencedColumnName = "user_id", name = "target_id", insertable = false, updatable = false)
 	private Player player;
 
-	public Player getTarget() {
-		return player;
-	}
-
-	public void setTarget(Player target) {
-		this.player = target;
-	}
-
-	public Contract() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public Contract(int contractId, String description, int contractedTo, int statusId, int targetId, Player target) {
-		super();
-		this.contractId = contractId;
-		this.description = description;
-		this.contractedTo = contractedTo;
-		this.statusId = statusId;
-		this.targetId = targetId;
-		this.player = target;
-	}
-
-	public int getTargetId() {
-		return targetId;
-	}
-
-	public void setTargetId(int targetId) {
-		this.targetId = targetId;
-	}
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(referencedColumnName = "status_id", name = "status_id", insertable = false, updatable = false)
+	private Status current;
 
 	public int getContractId() {
 		return contractId;
@@ -100,6 +73,47 @@ public class Contract {
 
 	public void setStatusId(int statusId) {
 		this.statusId = statusId;
+	}
+
+	public int getTargetId() {
+		return targetId;
+	}
+
+	public void setTargetId(int targetId) {
+		this.targetId = targetId;
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
+	public Status getCurrent() {
+		return current;
+	}
+
+	public void setCurrent(Status current) {
+		this.current = current;
+	}
+
+	public Contract(int contractId, String description, int contractedTo, int statusId, int targetId, Player player,
+			Status current) {
+		super();
+		this.contractId = contractId;
+		this.description = description;
+		this.contractedTo = contractedTo;
+		this.statusId = statusId;
+		this.targetId = targetId;
+		this.player = player;
+		this.current = current;
+	}
+
+	public Contract() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 }
