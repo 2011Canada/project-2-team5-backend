@@ -56,7 +56,7 @@ public class Player {
 	private Timestamp movementCooldown;
 
 	@OneToMany(mappedBy = "player", fetch = FetchType.LAZY)
-	@JsonBackReference
+	@JsonBackReference(value = "user-target")
 	private List<Contract> targets;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

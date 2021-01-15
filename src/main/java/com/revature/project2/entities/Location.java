@@ -40,7 +40,7 @@ public class Location {
 	private int adjacentLocation2;
 
 	@OneToMany(mappedBy = "currentLocation", fetch = FetchType.LAZY)
-	@JsonBackReference
+	@JsonBackReference(value = "user-location")
 	private List<Player> me;
 
 	public List<Player> getMe() {
