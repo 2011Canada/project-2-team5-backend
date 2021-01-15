@@ -2,6 +2,7 @@ package com.revature.project2.entities;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -31,6 +32,27 @@ public class Status {
 	@JsonBackReference
 	private List<Contract> statuses;
 
+	@OneToMany(mappedBy = "status", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	// @JoinColumn(referencedColumnName = "alias_id", name = "user_id", insertable =
+	// false, updatable = false)
+	private List<Alias> alias;
+
+	public Status(int cstatusId, String statusName, List<Contract> statuses, List<Alias> alias) {
+		super();
+		this.cstatusId = cstatusId;
+		this.statusName = statusName;
+		this.statuses = statuses;
+		this.alias = alias;
+	}
+
+	public List<Alias> getAlias() {
+		return alias;
+	}
+
+	public void setAlias(List<Alias> alias) {
+		this.alias = alias;
+	}
+
 	public int getCstatusId() {
 		return cstatusId;
 	}
@@ -52,13 +74,6 @@ public class Status {
 	}
 
 	public void setStatuses(List<Contract> statuses) {
-		this.statuses = statuses;
-	}
-
-	public Status(int cstatusId, String statusName, List<Contract> statuses) {
-		super();
-		this.cstatusId = cstatusId;
-		this.statusName = statusName;
 		this.statuses = statuses;
 	}
 

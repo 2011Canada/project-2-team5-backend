@@ -63,6 +63,18 @@ public class Player {
 	@JoinColumn(referencedColumnName = "location_id", name = "current_location", insertable = false, updatable = false)
 	private Location currentLocation;
 
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(referencedColumnName = "user_id", name = "user_id", insertable = false, updatable = false)
+	private List<Alias> title;
+
+	public List<Alias> getTitle() {
+		return title;
+	}
+
+	public void setTitle(List<Alias> title) {
+		this.title = title;
+	}
+
 	public Location getCurrentLocation() {
 		return currentLocation;
 	}
@@ -166,7 +178,7 @@ public class Player {
 
 	public Player(int userId, String firstName, String lastName, String userName, String userPassword, String email,
 			String photo, String salt, int currentLocationId, Timestamp movementCooldown, List<Contract> targets,
-			Location currentLocation) {
+			Location currentLocation, List<Alias> title) {
 		super();
 		this.userId = userId;
 		this.firstName = firstName;
@@ -180,6 +192,7 @@ public class Player {
 		this.movementCooldown = movementCooldown;
 		this.targets = targets;
 		this.currentLocation = currentLocation;
+		this.title = title;
 	}
 
 }

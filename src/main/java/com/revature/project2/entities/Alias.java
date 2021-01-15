@@ -2,45 +2,76 @@ package com.revature.project2.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "alias")
 public class Alias {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "alias_id")
 	private int aliasID;
-	
+
 	@Column(name = "user_id")
 	private int userID;
-	
+
 	@Column(name = "alias_name")
 	private String name;
-	
+
 	@Column(name = "current_level")
 	private int aliasLevel;
-	
+
 	@Column(name = "photo")
 	private String photo;
-	
+
 	@Column(name = "state_id")
 	private int stateID;
-	
+
 	@Column(name = "is_active")
 	private boolean isActive;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(referencedColumnName = "user_id", name = "user_id", insertable = false, updatable = false)
+	@JsonBackReference
+	private Player owner;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(referencedColumnName = "status_id", name = "state_id", insertable = false, updatable = false)
+	@JsonBackReference
+	private Status status;
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	public Player getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Player owner) {
+		this.owner = owner;
+	}
 
 	public Alias() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Alias(int aliasID, int userID, String name, int aliasLevel, String photo, int stateID,
-			boolean isActive) {
+	public Alias(int aliasID, int userID, String name, int aliasLevel, String photo, int stateID, boolean isActive,
+			Player owner, Status status) {
 		super();
 		this.aliasID = aliasID;
 		this.userID = userID;
@@ -49,6 +80,20 @@ public class Alias {
 		this.photo = photo;
 		this.stateID = stateID;
 		this.isActive = isActive;
+		this.owner = owner;
+		this.status = status;
+	}
+
+	public Alias(int aliasID, int userID, String name, int aliasLevel, String photo, int stateID, boolean isActive) {
+		super();
+		this.aliasID = aliasID;
+		this.userID = userID;
+		this.name = name;
+		this.aliasLevel = aliasLevel;
+		this.photo = photo;
+		this.stateID = stateID;
+		this.isActive = isActive;
+
 	}
 
 	public int getAliasID() {
@@ -158,5 +203,5 @@ public class Alias {
 			return false;
 		return true;
 	}
-	
+
 }
