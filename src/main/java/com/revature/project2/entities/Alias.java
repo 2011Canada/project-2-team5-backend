@@ -41,12 +41,12 @@ public class Alias {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(referencedColumnName = "user_id", name = "user_id", insertable = false, updatable = false)
-	@JsonBackReference
+	@JsonBackReference(value = "user-alias")
 	private Player owner;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(referencedColumnName = "status_id", name = "state_id", insertable = false, updatable = false)
-	@JsonBackReference
+	@JsonBackReference(value = "status-alias")
 	private Status status;
 
 	public Status getStatus() {

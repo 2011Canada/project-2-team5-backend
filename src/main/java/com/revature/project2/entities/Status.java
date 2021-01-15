@@ -29,7 +29,7 @@ public class Status {
 	private String statusName;
 
 	@OneToMany(mappedBy = "current", fetch = FetchType.LAZY)
-	@JsonBackReference
+	@JsonBackReference(value = "contract-status")
 	private List<Contract> statuses;
 
 	@OneToMany(mappedBy = "status", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
