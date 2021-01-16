@@ -43,6 +43,12 @@ public class ContractController {
 		return new ResponseEntity<>(c, HttpStatus.OK);
 	}
 
+	@GetMapping("/user/{id}")
+	public ResponseEntity<List<Contract>> findContractContractedTo(@PathVariable int id) {
+
+		return new ResponseEntity<List<Contract>>(cs.findAllContractsByUserId(id), HttpStatus.OK);
+	}
+
 	@PostMapping
 	public ResponseEntity<Contract> saveNewContract(@RequestBody Contract contract) {
 
