@@ -37,4 +37,10 @@ public class ContractServiceImpl implements ContractService {
 		return cd.saveAndFlush(contract);
 	}
 
+	@Override
+	public List<Contract> findAllContractsByUserId(int id) {
+		// TODO Auto-generated method stub
+		return cd.findByContractedTo(id);
+	}
+
 }

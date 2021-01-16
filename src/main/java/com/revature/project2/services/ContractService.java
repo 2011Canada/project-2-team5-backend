@@ -11,4 +11,6 @@ public interface ContractService {
 	public Contract findContractById(int id);
 
 	public Contract saveContract(Contract contract);
+
+	public List<Contract> findAllContractsByUserId(int id);
 }

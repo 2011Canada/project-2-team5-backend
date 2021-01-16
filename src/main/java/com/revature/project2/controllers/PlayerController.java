@@ -193,4 +193,12 @@ public class PlayerController {
 		return new ResponseEntity<Alias>(al, HttpStatus.OK);
 	}
 
+	@PutMapping("/alias")
+	public ResponseEntity<Alias> updateAlias(@RequestBody Alias alias) {
+
+		as.updateAlias(alias);
+		return new ResponseEntity<>(alias, HttpStatus.OK);
+
+	}
+
 }
