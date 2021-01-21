@@ -48,7 +48,7 @@ To-Do list:
 
 ## Getting Started
 
-* Go to http://java-react-team5-project2.s3-website.us-east-2.amazonaws.com/ to get started.
+* Go to http://java-react-team5-project2.s3-website.us-east-2.amazonaws.com/ to get started.  
 OR
 * Install any IDE(s) compatible with Java and JavaScript
 * Download the backend and frontend code using the command $ `git clone https://github.com/2011Canada/project-2-team5-frontend.git` and `git clone https://github.com/2011Canada/project-2-team5-backend.git`
@@ -65,7 +65,8 @@ in bash and import the projects in the IDE.
 
 ## Usage
 
-* On the login page, enter credentials to login as a player and you will be taken to the main page of the app where you can see options to travel between different locations and to hack a location.
+* On the login page, enter credentials to login as a player and you will be taken to the main page of the app where you can see options to travel between different locations and to hack a location.  
+![homepage](https://user-images.githubusercontent.com/65080518/105397521-07fbbf00-5bd6-11eb-89d6-1c9eb4907d16.PNG)
 * From the main page, go to the profile page to view all your aliases and your current alias. You will also find an option to create an alias there.
 * Next, navigate to the contracts page to get a contract and come back to main page to begin hacking!
 * You can go back to the profile page to check that the level of your alias has changed after a hack operation.
@@ -80,3 +81,4 @@ in bash and import the projects in the IDE.
 * [Tristan Brennan](https://github.com/tristanbrennan)
 
 ## License
+The project uses this following license: [GNU General Public License v3.0](https://github.com/2011Canada/project-2-team5-backend/blob/main/LICENSE)
