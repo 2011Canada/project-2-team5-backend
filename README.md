@@ -3,7 +3,7 @@
 ## Project Description
 Spybook is a social game in which the main goal of the users, the players, is to hack other users.
 The players can get contracts from the website and they specify who the target user is.
-There is world map using which players can move between locations and find their targets.
+There is a world map using which the players can move between locations and find their targets.
 Each user works by assuming a secret identity, an alias and each player can have multiple number of aliases.
 Players level up or down based on the successful or unsuccesful completion of a contract.
 
