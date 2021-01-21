@@ -15,14 +15,13 @@ Backend:
     * Spring Data
     * Spring MVC
     * Spring Boot
-* Eclipse
 * Java
 * Hibernate
 * Postgres
 * Swagger
 
 Frontend:
-* React
+* React and Redux
 * Javascript
 * CSS
 * Material-ui
