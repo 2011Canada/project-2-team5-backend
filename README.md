@@ -1,11 +1,7 @@
 # SPYBOOK
 
 ## Project Description
-Spybook is a social game in which the main goal of the users, the players, is to hack other users.
-The players can get contracts from the website and they specify who the target user is.
-There is a world map using which the players can move between locations and find their targets.
-Each user works by assuming a secret identity, an alias and each player can have multiple number of aliases.
-Players level up or down based on the successful or unsuccesful completion of a contract.
+Spybook is a social game in which the main goal of the users, the players, is to hack other users. The players can get contracts from the website and they specify who the target user is. There is a world map using which players can move between locations and find their targets. Each user works by assuming a secret identity, an alias, and each player can have multiple aliases. Players level up or down based on the successful or unsuccessful completion of a contract.
 
 
 ## Technologies Used
@@ -26,7 +22,7 @@ Frontend:
 * CSS
 * Material-ui
 * Axios
-* Node.js
+
 
 ## Features
 
@@ -50,15 +46,16 @@ To-Do list:
 * Go to http://java-react-team5-project2.s3-website.us-east-2.amazonaws.com/ to get started.  
 OR
 * Install any IDE(s) compatible with Java and JavaScript
-* Download the backend and frontend code using the command $ `git clone https://github.com/2011Canada/project-2-team5-frontend.git` and `git clone https://github.com/2011Canada/project-2-team5-backend.git`
-in bash and import the projects in the IDE.
+* Download the backend and frontend code using the command:
 * Backend:
+    * git clone https://github.com/2011Canada/project-2-team5-backend.git
     * update the maven project to install all dependencies
     * set the "ddl-auto" to "create" in the application.yml file in /src/main/resources
     * run the file Project2Application.java in src/main/java/com/revature/project2
     * set the "ddl-auto" back to "validate"
 * Frontend:
-    * On the command line, navigate to directory containing the cloned repo
+    * git clone https://github.com/2011Canada/project-2-team5-frontend.git  
+    * navigate to directory containing the cloned repo
     * run `npm install` to install all dependencies
     * run `npm start` to launch the website
 
